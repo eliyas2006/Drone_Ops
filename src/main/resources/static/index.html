@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DroneOps | Emergency Operations</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                🚁
+            </div>
+
+            <div>
+                <div class="brand-name">DroneOps</div>
+                <div class="brand-subtitle">Emergency Network</div>
+            </div>
+
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <button class="nav-item active" data-page="dashboard">
+                <span class="nav-icon">📊</span>
+                <span>Dashboard</span>
+            </button>
+
+            <button class="nav-item" data-page="incidents">
+
+                <span class="nav-icon">🔥</span>
+                <span>Incidents</span>
+
+                <span class="nav-count" id="sidebarIncidentCount">
+                    0
+                </span>
+
+            </button>
+
+            <button class="nav-item" data-page="drones">
+
+                <span class="nav-icon">🚁</span>
+                <span>Drone Fleet</span>
+
+            </button>
+
+            <button class="nav-item" data-page="rooftops">
+
+                <span class="nav-icon">🏢</span>
+                <span>Rooftop Network</span>
+
+            </button>
+
+            <button class="nav-item" data-page="deployments">
+
+                <span class="nav-icon">📦</span>
+                <span>Deployments</span>
+
+            </button>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="connection-card">
+
+                <div class="connection-dot" id="connectionDot"></div>
+
+                <div>
+
+                    <strong id="connectionText">
+                        Connecting...
+                    </strong>
+
+                    <span>
+                        Backend API
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="version">
+                DroneOps v1.0
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main">
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <div class="mobile-brand">
+                🚁 DroneOps
+            </div>
+
+            <div class="topbar-right">
+
+                <button
+                        class="icon-button"
+                        id="refreshButton"
+                        title="Refresh data">
+
+                    ↻
+
+                </button>
+
+                <div class="live-status">
+
+                    <span class="live-dot"></span>
+
+                    LIVE OPERATIONS
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= CONTENT ================= -->
+
+        <section class="content">
+
+            <!-- ================================================= -->
+            <!-- DASHBOARD -->
+            <!-- ================================================= -->
+
+            <div class="page" id="dashboardPage">
+
+                <div class="page-header">
+
+                    <div>
+
+                        <div class="breadcrumb">
+                            OPERATIONS CENTER / DASHBOARD
+                        </div>
+
+                        <h1>
+                            Emergency Operations Dashboard
+                        </h1>
+
+                        <p>
+                            Monitor incidents, drones, rooftop helipads
+                            and emergency deployments from one platform.
+                        </p>
+
+                    </div>
+
+                    <button
+                            class="primary-button"
+                            id="dashboardReportButton">
+
+                        + Report Emergency
+
+                    </button>
+
+                </div>
+
+
+                <!-- STAT CARDS -->
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon danger">
+                            🔥
+                        </div>
+
+                        <div>
+
+                            <div class="stat-label">
+                                ACTIVE INCIDENTS
+                            </div>
+
+                            <div
+                                    class="stat-value"
+                                    id="dashboardIncidents">
+                                0
+                            </div>
+
+                            <div class="stat-description">
+                                Require immediate attention
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon orange">
+                            🚁
+                        </div>
+
+                        <div>
+
+                            <div class="stat-label">
+                                AVAILABLE DRONES
+                            </div>
+
+                            <div
+                                    class="stat-value"
+                                    id="dashboardDrones">
+                                0
+                            </div>
+
+                            <div class="stat-description">
+                                Deployment ready
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon blue">
+                            🏢
+                        </div>
+
+                        <div>
+
+                            <div class="stat-label">
+                                AVAILABLE ROOFTOPS
+                            </div>
+
+                            <div
+                                    class="stat-value"
+                                    id="dashboardRooftops">
+                                0
+                            </div>
+
+                            <div class="stat-description">
+                                Emergency landing points
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon purple">
+                            📦
+                        </div>
+
+                        <div>
+
+                            <div class="stat-label">
+                                DEPLOYMENTS
+                            </div>
+
+                            <div
+                                    class="stat-value"
+                                    id="dashboardDeployments">
+                                0
+                            </div>
+
+                            <div class="stat-description">
+                                Total operations
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DASHBOARD PANELS -->
+
+                <div class="dashboard-grid">
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <div>
+
+                                <h2>
+                                    Active Emergencies
+                                </h2>
+
+                                <p>
+                                    Incidents requiring response
+                                </p>
+
+                            </div>
+
+                            <button
+                                    class="text-button"
+                                    data-page="incidents">
+
+                                View All →
+
+                            </button>
+
+                        </div>
+
+                        <div
+                                class="panel-body"
+                                id="dashboardIncidentList">
+
+                            <div class="loading">
+                                Loading incidents...
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <div>
+
+                                <h2>
+                                    Drone Fleet
+                                </h2>
+
+                                <p>
+                                    Current fleet availability
+                                </p>
+
+                            </div>
+
+                            <button
+                                    class="text-button"
+                                    data-page="drones">
+
+                                Manage →
+
+                            </button>
+
+                        </div>
+
+                        <div
+                                class="panel-body"
+                                id="dashboardDroneList">
+
+                            <div class="loading">
+                                Loading drones...
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h2>
+                                Recent Deployments
+                            </h2>
+
+                            <p>
+                                Latest emergency operations
+                            </p>
+
+                        </div>
+
+                        <button
+                                class="text-button"
+                                data-page="deployments">
+
+                            View All →
+
+                        </button>
+
+                    </div>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                            <tr>
+
+                                <th>ID</th>
+                                <th>INCIDENT</th>
+                                <th>DRONE</th>
+                                <th>ROOFTOP</th>
+                                <th>STATUS</th>
+
+                            </tr>
+
+                            </thead>
+
+                            <tbody id="dashboardDeploymentTable">
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================================================= -->
+            <!-- INCIDENTS -->
+            <!-- ================================================= -->
+
+            <div class="page hidden" id="incidentsPage">
+
+                <div class="page-header">
+
+                    <div>
+
+                        <div class="breadcrumb">
+                            OPERATIONS CENTER / INCIDENTS
+                        </div>
+
+                        <h1>
+                            Incident Management
+                        </h1>
+
+                        <p>
+                            Monitor and manage emergency situations
+                            across the city.
+                        </p>
+
+                    </div>
+
+                    <button
+                            class="primary-button"
+                            id="reportIncidentButton">
+
+                        + Report Emergency
+
+                    </button>
+
+                </div>
+
+
+                <!-- INCIDENT TOOLBAR -->
+
+                <div class="toolbar">
+
+                    <div class="search-box">
+
+                        <span>
+                            🔎
+                        </span>
+
+                        <input
+                                type="text"
+                                id="incidentSearch"
+                                placeholder="Search location or description...">
+
+                    </div>
+
+
+                    <select id="severityFilter">
+
+                        <option value="ALL">
+                            All Severity
+                        </option>
+
+                        <option value="CRITICAL">
+                            Critical
+                        </option>
+
+                        <option value="HIGH">
+                            High
+                        </option>
+
+                        <option value="MEDIUM">
+                            Medium
+                        </option>
+
+                        <option value="LOW">
+                            Low
+                        </option>
+
+                    </select>
+
+
+                    <select id="statusFilter">
+
+                        <option value="ALL">
+                            All Status
+                        </option>
+
+                        <option value="ACTIVE">
+                            Active
+                        </option>
+
+                        <option value="RESOLVED">
+                            Resolved
+                        </option>
+
+                    </select>
+
+
+                    <button
+                            class="secondary-button"
+                            id="incidentRefreshButton">
+
+                        ↻ Refresh
+
+                    </button>
+
+                </div>
+
+
+                <!-- INCIDENT SUMMARY -->
+
+                <div class="incident-summary">
+
+                    <div>
+                        <span class="summary-number"
+                              id="totalIncidentCount">
+                            0
+                        </span>
+
+                        <span class="summary-label">
+                            Total
+                        </span>
+                    </div>
+
+                    <div>
+                        <span
+                                class="summary-number critical-text"
+                                id="criticalIncidentCount">
+                            0
+                        </span>
+
+                        <span class="summary-label">
+                            Critical
+                        </span>
+                    </div>
+
+                    <div>
+                        <span
+                                class="summary-number active-text"
+                                id="activeIncidentCount">
+                            0
+                        </span>
+
+                        <span class="summary-label">
+                            Active
+                        </span>
+                    </div>
+
+                    <div>
+                        <span
+                                class="summary-number resolved-text"
+                                id="resolvedIncidentCount">
+                            0
+                        </span>
+
+                        <span class="summary-label">
+                            Resolved
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <!-- INCIDENT TABLE -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h2>
+                                Emergency Incidents
+                            </h2>
+
+                            <p>
+                                Live incident registry
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                            <tr>
+
+                                <th>ID</th>
+                                <th>LOCATION</th>
+                                <th>SEVERITY</th>
+                                <th>DESCRIPTION</th>
+                                <th>STATUS</th>
+                                <th>CREATED</th>
+                                <th>ACTIONS</th>
+
+                            </tr>
+
+                            </thead>
+
+                            <tbody id="incidentTableBody">
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================================================= -->
+            <!-- DRONES -->
+            <!-- ================================================= -->
+
+            <div class="page hidden" id="dronesPage">
+
+                <div class="page-header">
+
+                    <div>
+
+                        <div class="breadcrumb">
+                            OPERATIONS CENTER / DRONE FLEET
+                        </div>
+
+                        <h1>
+                            Drone Fleet
+                        </h1>
+
+                        <p>
+                            Monitor emergency drone availability.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="panel">
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                            <tr>
+                                <th>ID</th>
+                                <th>DRONE CODE</th>
+                                <th>PAYLOAD</th>
+                                <th>BATTERY</th>
+                                <th>STATUS</th>
+                            </tr>
+
+                            </thead>
+
+                            <tbody id="droneTableBody"></tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================================================= -->
+            <!-- ROOFTOPS -->
+            <!-- ================================================= -->
+
+            <div class="page hidden" id="rooftopsPage">
+
+                <div class="page-header">
+
+                    <div>
+
+                        <div class="breadcrumb">
+                            OPERATIONS CENTER / ROOFTOP NETWORK
+                        </div>
+
+                        <h1>
+                            Rooftop Network
+                        </h1>
+
+                        <p>
+                            Monitor emergency rooftop helipads.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="panel">
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                            <tr>
+                                <th>ID</th>
+                                <th>BUILDING</th>
+                                <th>LOCATION</th>
+                                <th>CAPACITY</th>
+                                <th>STATUS</th>
+                            </tr>
+
+                            </thead>
+
+                            <tbody id="rooftopTableBody"></tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================================================= -->
+            <!-- DEPLOYMENTS -->
+            <!-- ================================================= -->
+
+            <div class="page hidden" id="deploymentsPage">
+
+                <div class="page-header">
+
+                    <div>
+
+                        <div class="breadcrumb">
+                            OPERATIONS CENTER / DEPLOYMENTS
+                        </div>
+
+                        <h1>
+                            Deployment Operations
+                        </h1>
+
+                        <p>
+                            Track drone emergency deployments.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="panel">
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                            <tr>
+                                <th>ID</th>
+                                <th>INCIDENT</th>
+                                <th>DRONE</th>
+                                <th>ROOFTOP</th>
+                                <th>STATUS</th>
+                                <th>CREATED</th>
+                            </tr>
+
+                            </thead>
+
+                            <tbody id="deploymentTableBody"></tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- INCIDENT MODAL -->
+<!-- ================================================= -->
+
+<div
+        class="modal-overlay hidden"
+        id="incidentModal">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <div>
+
+                <div class="modal-icon">
+                    🔥
+                </div>
+
+                <div>
+
+                    <h2 id="modalTitle">
+                        Report Emergency
+                    </h2>
+
+                    <p>
+                        Create a new emergency incident.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <button
+                    class="modal-close"
+                    id="closeModal">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <form id="incidentForm">
+
+            <input
+                    type="hidden"
+                    id="incidentId">
+
+
+            <div class="form-group">
+
+                <label>
+                    Location
+                </label>
+
+                <input
+                        type="text"
+                        id="incidentLocation"
+                        placeholder="Example: Chennai"
+                        required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Severity
+                </label>
+
+                <select
+                        id="incidentSeverity"
+                        required>
+
+                    <option value="">
+                        Select severity
+                    </option>
+
+                    <option value="CRITICAL">
+                        Critical
+                    </option>
+
+                    <option value="HIGH">
+                        High
+                    </option>
+
+                    <option value="MEDIUM">
+                        Medium
+                    </option>
+
+                    <option value="LOW">
+                        Low
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Description
+                </label>
+
+                <textarea
+                        id="incidentDescription"
+                        rows="4"
+                        placeholder="Describe the emergency..."
+                        required></textarea>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Status
+                </label>
+
+                <select
+                        id="incidentStatus">
+
+                    <option value="ACTIVE">
+                        Active
+                    </option>
+
+                    <option value="RESOLVED">
+                        Resolved
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                        type="button"
+                        class="secondary-button"
+                        id="cancelModal">
+
+                    Cancel
+
+                </button>
+
+                <button
+                        type="submit"
+                        class="primary-button">
+
+                    Save Incident
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div
+        class="toast"
+        id="toast">
+
+    <span id="toastMessage">
+        Success
+    </span>
+
+</div>
+
+
+<script src="app.js"></script>
+
+</body>
+</html>
